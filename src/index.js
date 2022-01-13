@@ -20,8 +20,8 @@ import airportHistory from "./files/my-airports.json";
 var renderer, camera, scene, controls;
 let mouseX = 0;
 let mouseY = 0;
-let windowHalfX = window.innerWidth / 2;
-let windowHalfY = window.innerHeight / 2;
+let windowHalfX = 900 / 2;
+let windowHalfY = 900 / 2;
 var Globe;
 
 init();
@@ -33,19 +33,17 @@ animate();
 function init() {
   // Initialize renderer
   renderer = new WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setClearColor( 0x000000, 0 );
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(900, 900);
   // renderer.outputEncoding = THREE.sRGBEncoding;
-  // const interval = setInterval(() => {
-  //   const element = document.getElementById('globe');
-  //   if (element !== null) {
-  //     element.appendChild(renderer.domElement);
-  //     clearInterval(interval);
-  //   }
-  // }, 1000);
-
-  document.body.appendChild(renderer.domElement);
-
+  const interval = setInterval(() => {
+    const element = document.getElementById('globe');
+    if (element !== null) {
+      element.appendChild(renderer.domElement);
+      clearInterval(interval);
+    }
+  }, 1000);
   // Initialize scene, light
   scene = new Scene();
   scene.add(new AmbientLight(0xbbbbbb, 0.3));
@@ -53,7 +51,7 @@ function init() {
 
   // Initialize camera, light
   camera = new PerspectiveCamera();
-  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.aspect = 900 / 900;
   camera.updateProjectionMatrix();
 
   var dLight = new DirectionalLight(0xffffff, 0.8);
@@ -182,11 +180,11 @@ function onMouseMove(event) {
 }
 
 function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.aspect = 900 / 900;
   camera.updateProjectionMatrix();
-  windowHalfX = window.innerWidth / 1.5;
-  windowHalfY = window.innerHeight / 1.5;
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  windowHalfX = 900 / 1.5;
+  windowHalfY = 900 / 1.5;
+  renderer.setSize(900, 900);
   renderer.domElement.id = 'globe-canvas';
 }
 
