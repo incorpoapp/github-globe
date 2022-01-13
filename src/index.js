@@ -32,10 +32,17 @@ animate();
 // SECTION Initializing core ThreeJS elements
 function init() {
   // Initialize renderer
-  renderer = new WebGLRenderer({ antialias: true });
+  renderer = new WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   // renderer.outputEncoding = THREE.sRGBEncoding;
+  const interval = setInterval(() => {
+    const element = document.getElementById('globe');
+    if (element !== null) {
+      element.appendChild(renderer.domElement);
+      clearInterval(interval);
+    }
+  }, 1000);
   document.body.appendChild(renderer.domElement);
 
   // Initialize scene, light
@@ -178,6 +185,7 @@ function onWindowResize() {
   windowHalfX = window.innerWidth / 1.5;
   windowHalfY = window.innerHeight / 1.5;
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.domElement.id = 'globe-canvas';
 }
 
 function animate() {
