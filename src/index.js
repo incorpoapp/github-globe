@@ -36,13 +36,15 @@ function init() {
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   // renderer.outputEncoding = THREE.sRGBEncoding;
-  const interval = setInterval(() => {
-    const element = document.getElementById('globe');
-    if (element !== null) {
-      element.appendChild(renderer.domElement);
-      clearInterval(interval);
-    }
-  }, 1000);
+  // const interval = setInterval(() => {
+  //   const element = document.getElementById('globe');
+  //   if (element !== null) {
+  //     element.appendChild(renderer.domElement);
+  //     clearInterval(interval);
+  //   }
+  // }, 1000);
+
+  document.body.appendChild(renderer.domElement);
 
   // Initialize scene, light
   scene = new Scene();
@@ -93,6 +95,7 @@ function init() {
   controls.rotateSpeed = 0.8;
   controls.zoomSpeed = 1;
   controls.autoRotate = false;
+  controls.enableZoom = false;
 
   controls.minPolarAngle = Math.PI / 3.5;
   controls.maxPolarAngle = Math.PI - Math.PI / 3;
@@ -167,7 +170,7 @@ function initGlobe() {
   globeMaterial.shininess = 0.7;
 
   // NOTE Cool stuff
-  // globeMaterial.wireframe = true;
+  globeMaterial.wireframe = true;
 
   scene.add(Globe);
 }
@@ -188,12 +191,12 @@ function onWindowResize() {
 }
 
 function animate() {
-  camera.position.x +=
-    Math.abs(mouseX) <= windowHalfX / 2
-      ? (mouseX / 2 - camera.position.x) * 0.005
-      : 0;
-  camera.position.y += (-mouseY / 2 - camera.position.y) * 0.005;
-  camera.lookAt(scene.position);
+  // camera.position.x +=
+  //   Math.abs(mouseX) <= windowHalfX / 2
+  //     ? (mouseX / 2 - camera.position.x) * 0.005
+  //     : 0;
+  // camera.position.y += (-mouseY / 2 - camera.position.y) * 0.005;
+  // camera.lookAt(scene.position);
   controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
