@@ -43,7 +43,6 @@ function init() {
       clearInterval(interval);
     }
   }, 1000);
-  document.body.appendChild(renderer.domElement);
 
   // Initialize scene, light
   scene = new Scene();
