@@ -17,9 +17,13 @@ import airportHistory from "./files/my-airports.json";
 
 
 class Globe {
-  constructor(windowHalfX, windowHalfY, rendererDomElementId) {
-    this.windowHalfX = windowHalfX;
-    this.windowHalfY = windowHalfY;
+  constructor(width, height, rendererDomElementId) {
+    this.windowHalfX = width / 2;
+    this.windowHalfY = height / 2;
+
+    this.width = width;
+    this.height = height;
+
     this.mouseX = 0;
     this.mouseY = 0;
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
@@ -32,13 +36,13 @@ class Globe {
   init() {
     this.renderer.setClearColor( 0x000000, 0 );
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(700, 700);
+    this.renderer.setSize(this.width, this.height);
     this.renderer.setClearColor( 0xffffff, 0);
     this.renderer.domElement.id = this.rendererDomElementId;
 
     this.scene.add(new AmbientLight(0xbbbbbb, 0.3));
 
-    this.camera.aspect = 700 / 700;
+    this.camera.aspect = this.width / this.height;
     this.camera.updateProjectionMatrix();
 
     let dLight = new DirectionalLight(0xffffff, 0.8);
@@ -153,20 +157,25 @@ class Globe {
     this.scene.add(globe);
   }
 
-  setAspectSize(windowHalfX, windowHalfY) {
-    this.camera.aspect = windowHalfX / windowHalfY;
+  setAspectSize(width, height) {
+    this.width = width
+    this.height = height
+
+    this.camera.aspect = this.width / this.height;
     this.camera.updateProjectionMatrix();
-    this.windowHalfX = windowHalfX / 1.5;
-    this.windowHalfY = windowHalfY / 1.5;
-    this.renderer.setSize(windowHalfX, windowHalfY);
+    this.windowHalfX = this.width / 2;
+    this.windowHalfY = this.height / 2;
+    this.renderer.setSize(this.width, this.height);
   }
 }
 
 window.Globe = Globe;
 
-// let g = new Globe(900, 900, "globe");
-// let domElement = g.init();
-// g.initGlobe();
-// g.animate()
+let g = new Globe(window.innerWidth, window.innerHeight, "globe-canvas");
+let domElement = g.init();
+g.initGlobe();
+g.animate()
 
-// document.body.appendChild(domElement);
+document.body.appendChild(domElement);
+
+window.addEventListener("resize", () => { g.setAspectSize(window.innerWidth, window.innerHeight) }, false);
