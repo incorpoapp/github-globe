@@ -31,6 +31,7 @@ class Globe {
     this.scene = new Scene();
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.rendererDomElementId = rendererDomElementId;
+    console.warn("VERSION 1.0");
   }
 
   init() {
@@ -57,7 +58,7 @@ class Globe {
     dLight2.position.set(-200, 500, 200);
     this.camera.add(dLight2);
 
-    this.camera.position.z = 290;
+    this.camera.position.z = 400;
     this.camera.position.x = 0;
     this.camera.position.y = 0;
 
@@ -171,11 +172,11 @@ class Globe {
 
 window.Globe = Globe;
 
-let g = new Globe(window.innerWidth, window.innerHeight, "globe-canvas");
-let domElement = g.init();
-g.initGlobe();
-g.animate()
+// let g = new Globe(window.innerWidth, window.innerHeight, "globe-canvas");
+// let domElement = g.init();
+// g.initGlobe();
+// g.animate()
 
-document.body.appendChild(domElement);
+// document.body.appendChild(domElement);
 
-window.addEventListener("resize", () => { g.setAspectSize(window.innerWidth, window.innerHeight) }, false);
+// window.addEventListener("resize", () => { g.setAspectSize(window.innerWidth, window.innerHeight) }, false);
