@@ -26,7 +26,7 @@ class Globe {
 
     this.mouseX = 0;
     this.mouseY = 0;
-    this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
+    this.renderer = new WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
     this.camera = new PerspectiveCamera();
     this.scene = new Scene();
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -58,7 +58,7 @@ class Globe {
     dLight2.position.set(-200, 500, 200);
     this.camera.add(dLight2);
 
-    this.camera.position.z = 400;
+    this.camera.position.z = 300;
     this.camera.position.x = 0;
     this.camera.position.y = 0;
 
